@@ -5,12 +5,12 @@ using System.Web;
 
 namespace ASP.NET_MVC.Models
 {
-    public class AnimalSpecies
+    public class User
     {
    
             public int Id { get; set; }
             public string Name { get; set; }
-            public string Description { get; set; }
+
         
 
     }

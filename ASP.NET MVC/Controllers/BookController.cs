@@ -11,18 +11,18 @@ using ASP.NET_MVC.Models;
 
 namespace ASP.NET_MVC.Controllers
 {
-    public class AnimalController : Controller
+    public class BookController : Controller
     {
 
         // async Because we are connecting to API
         // Task<ActionsResults>
 
-        // GET: Product
-        public async Task<ActionResult> Index()
+        // GET: Book
+        public async Task<ActionResult> Books()
         {
             //Hosted web API REST Service base url
             string Baseurl = "https://localhost:7147/";
-            List<Animal> Animals = new List<Animal>();
+            List<Book> Books = new List<Book>();
             using (var client = new HttpClient())
             {
                 //Passing service base url
@@ -34,23 +34,23 @@ namespace ASP.NET_MVC.Controllers
                 MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource using HttpClient
-                HttpResponseMessage Res = await client.GetAsync("api/Animal");
+                HttpResponseMessage Res = await client.GetAsync("api/Book/GetBooks");
 
                 //Checking the response is successful or not which is sent HttpClient
                 if (Res.IsSuccessStatusCode)
                 {
                     //Storing the response details recieved from web api
-                    var AnimalResponse = Res.Content.ReadAsStringAsync().Result;
+                    var BookResponse = Res.Content.ReadAsStringAsync().Result;
 
                     //Deserializing the response recieved from web api and storing the Product list
-                    Animals = JsonConvert.DeserializeObject<List<Animal>>(AnimalResponse);
+                    Books = JsonConvert.DeserializeObject<List<Book>>(BookResponse);
                 }
                 //returning the Product list to view
-                return View(Animals);
+                return View(Books);
             }
         }
 
-        // GET: Product/Details/5
+        // GET: Book/Details/5
         public ActionResult Details(int id)
         {
             return View();
@@ -62,7 +62,7 @@ namespace ASP.NET_MVC.Controllers
             return View();
         }
 
-        // POST: Product/Create
+        // POST: Book/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
